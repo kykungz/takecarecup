@@ -118,13 +118,6 @@ $(() => {
         }
       }
     }
-
-
-
-
-
-
-
     $('#suggestion').html(suggestion)
   }
 
