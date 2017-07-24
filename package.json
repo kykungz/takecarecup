@@ -1,0 +1,27 @@
+{
+  "name": "takecarecup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kykungz/takecarecup.git"
+  },
+  "author": "Kongpon Charanwattanakit",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kykungz/takecarecup/issues"
+  },
+  "homepage": "https://github.com/kykungz/takecarecup#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "ip": "^1.1.5"
+  }
+}
