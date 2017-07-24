@@ -1,12 +1,21 @@
 .content {
-  margin: 14px;
+  margin: 0px;
   max-width: 750px;
   box-shadow: 0.5px 0.5px 6px rgb(148, 148, 148);
   background: white;
+  border: 1px solid #dfdfdf;
 }
 
 .small-content {
   max-width: 400px;
+}
+
+.content-left {
+  border-right: 1px solid #d4d4d4;
+}
+
+.content-right {
+  border-left: 1px solid #d4d4d4;
 }
 
 h1, h2, h3, h4 {

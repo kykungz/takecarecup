@@ -13,6 +13,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <script src="./lib/progressbar.min.js" charset="utf-8"></script>
     <script src="./lib/drank_bar.js" charset="utf-8"></script>
     <script src="index.js" charset="utf-8"></script>
@@ -27,12 +30,24 @@
     </div>
     <div class="container content">
       <div class="text-center row">
-        <div class="col-xs-6">
-          <h2>hjkl</h2>
+        <div class="content-left col-xs-6">
+          <h2 id="temp">
+            <i style="margin-right:10px" class="fa fa-thermometer-half" aria-hidden="true"></i>
+            25 °C</h2>
         </div>
-        <div class="col-xs-6">
-          <h2>fghjk</h2>
+        <div class="content-right col-xs-6">
+          <h2 id="amount">30 ml</h2>
         </div>
+      </div>
+    </div>
+    <div class="container content">
+      <div class="text-center">
+        <h2>STIR</h2>
+      </div>
+    </div>
+    <div class="container content">
+      <div class="text-center">
+        <h2>WARM</h2>
       </div>
     </div>
   </body>
