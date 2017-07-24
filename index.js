@@ -1,6 +1,6 @@
 $(() => {
   const root = 'http://158.108.165.223/data/8/'
-  const db = 'http://158.108.165.182/api/list.php'
+  const db = 'http://158.108.165.192/api/list.php'
 
   let volume = 0
   let temp = 0
@@ -66,7 +66,6 @@ $(() => {
           $('#temp').html(`Cold`)
         }
         break;
-      default:
     }
   }
   function updateBar() {
@@ -166,11 +165,9 @@ $(() => {
     data.forEach((day, i) => {
       if (new Date(day.timestamp).toDateString() === today) {
         let amount = day.volume
-        console.log(amount, lastAmount);
         if (i !== 0) {
           if (amount < lastAmount) {
             drankAmount += (lastAmount - amount)
-            console.log('drankAmount: ', drankAmount);
           }
         }
         lastAmount = amount
@@ -219,7 +216,7 @@ $(() => {
 
   setInterval(() => {
     getFromServer('temp', (data) => {
-      // console.log('temp:', data)
+      console.log('temp(old):', data)
       temp = data
       updateTemp()
     })
@@ -234,10 +231,16 @@ $(() => {
 
       drank_amount = convertToDrankAmount(data)
       volume = data[data.length-1].volume
+      // temp = data[data.length-1].temp
+
+      console.log('volume:', volume);
+      console.log('drank_amount:', drank_amount * 2000);
+      console.log('temp:', temp);
 
       updateVolume()
       updateBar()
       updateSuggestion()
+      // updateTemp()
     })
   }, 1000 * 2)
 
