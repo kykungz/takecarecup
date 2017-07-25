@@ -5,7 +5,7 @@ var express = require('express');
 var app = express();
 var PORT = 3000;
 
-app.use(express.static('src'));
+app.use(express.static('build'));
 
 app.use(function (req, res, next) {
   console.log('someone is coming');
@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/', function (req, res) {
-  res.sendFile('index.html', { root: 'src' });
+  res.sendFile('index.html', { root: 'build' });
 });
 
 app.listen(process.env.PORT || PORT, function () {
