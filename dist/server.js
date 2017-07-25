@@ -4,6 +4,7 @@ var ip = require("ip");
 var express = require('express');
 var app = express();
 var PORT = 3000;
+console.log('this is in dist');
 
 app.use(express.static('./'));
 

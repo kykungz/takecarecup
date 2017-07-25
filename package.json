@@ -8,9 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./dist/app/server.js",
+    "start": "node ./dist/server.js",
     "dev": "nodemon server.js",
-    "build": "babel app/*.js -d dist"
+    "build": "babel app -d dist && cp app/index.html dist && cp app/style.css dist && cp -a app/images dist"
   },
   "repository": {
     "type": "git",
