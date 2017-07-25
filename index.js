@@ -121,7 +121,7 @@ $(() => {
         suggestion = `Your day is ending, yet you haven't drink enough water!`
       } else {
         if (drank_percent >= 0.4) {
-          suggestion = `8 cups of water a day keeps the doctors away!`
+          suggestion = `Try to get some warm water`
         } else if (drank_percent >= 0.3) {
           suggestion = `Maybe you want a cup of water?`
         } else if (drank_percent >= 0.2) {
@@ -168,18 +168,20 @@ $(() => {
   }
 
   function convertToOverallData(data) {
-    return data.map((day) => {
+    let overallData = data.map((day) => {
       return day.volume / 1000
     })
+    return overallData.splice(overallData.length - 25, overallData.length)
   }
 
   function convertToOverallLabels(data) {
-    return data.map((day) => {
+    let overallLabels = data.map((day) => {
       let date = new Date(day.timestamp)
       let hours = date.getHours()
       var ampm = hours >= 12 ? 'PM' : 'AM'
       return `${hours}:${date.getMinutes()} ${ampm}`
     })
+    return overallLabels.splice(overallLabels.length - 25, overallLabels.length)
   }
 
   function convertToDrankAmount(data) {
