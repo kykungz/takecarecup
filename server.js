@@ -15,5 +15,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`Server started on ${ip.address()}:${PORT}`)
+  console.log(`Server started on ${ip.address()}:${process.env.PORT || PORT}`)
 })
