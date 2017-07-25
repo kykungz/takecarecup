@@ -8,10 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./dist/server.js",
-    "dev": "nodemon server.js",
-    "build": "babel app -d dist",
-    "build_bkp": "babel app -d dist && cp app/index.html dist && cp app/style.css dist && cp -a app/images dist"
+    "start": "node ./build/server.js",
+    "dev": "nodemon ./src/server.js",
+    "build": "babel src -d build"
   },
   "repository": {
     "type": "git",
