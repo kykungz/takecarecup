@@ -1,5 +1,5 @@
 $(() => {
-  const api = 'http://exceed.srakrn.me/api/'
+  const api = 'https://exceed.srakrn.me/api/'
 
   let volume = 0 // in mL
   let temp = 0 // in Celcius
