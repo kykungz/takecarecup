@@ -5,6 +5,8 @@ var express = require('express');
 var app = express();
 var PORT = 3000;
 
+app.use(express.static('src/index.html'));
+app.use(express.static('src/style.css'));
 app.use(express.static('build'));
 
 app.use(function (req, res, next) {
@@ -13,7 +15,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/', function (req, res) {
-  res.sendFile('index.html', { root: 'build' });
+  res.sendFile('index.html', { root: 'src' });
 });
 
 app.listen(process.env.PORT || PORT, function () {
