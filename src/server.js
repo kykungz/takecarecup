@@ -10,8 +10,8 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/', (req, res) => {
-  res.sendFile('index.html',{root: 'src' })
+app.get('/', (req, resm, err) => {
+  res.sendFile('index.html', {root: 'src' })
 })
 
 app.listen(process.env.PORT || PORT, () => {
