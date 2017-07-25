@@ -21,15 +21,16 @@
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Anton|Raleway|Source+Sans+Pro|Ubuntu+Condensed" rel="stylesheet">
-    <!-- Chat.js -->
+    <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
 
+    <script src="./lib/func.js" charset="utf-8"></script>
     <script src="./lib/progressbar.min.js" charset="utf-8"></script>
-    <script src="./lib/drank_bar.js" charset="utf-8"></script>
-    <script src="./lib/weekly_graph.js" charset="utf-8"></script>
-    <script src="./lib/overall_graph.js" charset="utf-8"></script>
-
+    <script src="./components/drank_bar.js" charset="utf-8"></script>
+    <script src="./components/weekly_graph.js" charset="utf-8"></script>
+    <script src="./components/overall_graph.js" charset="utf-8"></script>
     <script src="index.js" charset="utf-8"></script>
+
   </head>
   <body>
     <div class="content">
@@ -38,43 +39,47 @@
         Take Care na Cup</h1>
     </div>
     <div id="statistics_block" class="text-center content">
-      <h1 style="margin-bottom:20px">
-        <i class="fa fa-pie-chart" aria-hidden="true"></i>
-        Statistics
-      </h1>
-      <div style="margin-bottom: 20px" class="row">
-        <div class="col-sm-4">
-          <div class="container-fluid">
-            <div id="drank_progressbar"></div>
-            <h2 id="suggestion">Drink some more!</h2>
+      <div class="container-fluid">
+        <h1 style="margin-bottom:20px">
+          <i class="fa fa-pie-chart" aria-hidden="true"></i>
+          Statistics
+        </h1>
+        <div style="margin-bottom: 20px" class="row">
+          <div class="col-sm-4">
+            <div class="container-fluid">
+              <div id="drank_progressbar"></div>
+              <h2 id="suggestion">Drink some more!</h2>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div style="max-width:430px" class="container-fluid">
-            <canvas id="overall_graph" width="200px" height="200px"></canvas>
+          <div class="col-sm-4">
+            <div style="max-width:430px" class="container-fluid">
+              <canvas id="overall_graph" width="200px" height="200px"></canvas>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div style="max-width:430px"class="container-fluid">
-            <canvas id="weekly_graph" width="200px" height="200px"></canvas>
+          <div class="col-sm-4">
+            <div style="max-width:430px"class="container-fluid">
+              <canvas id="weekly_graph" width="200px" height="200px"></canvas>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="content">
-      <div class="text-center row">
-        <div id="temp-block" class="content-left col-xs-6">
-          <h2>
-            <i class="mdi mdi-thermometer"></i>
-            <span id="temp">25 °C</span>
-          </h2>
-        </div>
-        <div id="volume-block" class="content-right col-xs-6">
-          <h2>
-            <i id="volume_icon" class="mdi mdi-cup-off"></i>
-            <span id="volume">Empty</span>
-          </h2>
+      <div class="container-fluid">
+        <div class="text-center row">
+          <div id="temp-block" class="content-left col-xs-6">
+            <h2>
+              <i class="mdi mdi-thermometer"></i>
+              <span id="temp">0 °C</span>
+            </h2>
+          </div>
+          <div id="volume-block" class="content-right col-xs-6">
+            <h2>
+              <i id="volume_icon" class="mdi mdi-cup-off"></i>
+              <span id="volume">Empty</span>
+            </h2>
+          </div>
         </div>
       </div>
     </div>
@@ -85,7 +90,7 @@
           STIR</h2>
       </div>
     </div>
-    <div id="warm" class="content">
+    <div style="margin-bottom: 60px" id="warm" class="content">
       <div class="text-center">
         <h2>
           <i class="mdi mdi-waves"></i>

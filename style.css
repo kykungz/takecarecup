@@ -19,11 +19,8 @@ body {
   /* max-width: 750px; */
   box-shadow: 0.5px 0.5px 6px rgb(148, 148, 148);
   background: white;
+  /* border-radius: 6px; */
   border: 1px solid #dfdfdf;
-}
-
-.small-content {
-  max-width: 400px;
 }
 
 .content-left {

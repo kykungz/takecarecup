@@ -1,4 +1,5 @@
 var drank_bar
+var drank_amount = 0
 var drank_bar_type = 0
 
 $(() => {
@@ -25,17 +26,17 @@ $(() => {
       } else {
         switch (drank_bar_type) {
           case 0: // ml
-            circle.setText(`${parseInt(circle.value() * 2000)} ml`);
+            // circle.setText(`${parseInt(circle.value() * 2000)} ml`);
+            circle.setText(`${drank_amount} ml`);
             break;
           case 1: // cups
-            circle.setText(`${parseInt(circle.value() * 2000) / 250} cups`);
+            circle.setText(`${round(drank_amount / 250)} cups`);
             break;
           case 2: // percent
-            circle.setText(`${value} %`);
+            circle.setText(`${round(drank_amount / 2000 * 100)} %`);
             break;
         }
       }
-
     }
   });
 
