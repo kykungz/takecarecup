@@ -6,7 +6,7 @@ var app = express();
 var PORT = 3000;
 
 app.use(express.static('src/index.html'));
-app.use(express.static('src/style.css'));
+// app.use(express.static('src/style.css'));
 app.use(express.static('build'));
 
 app.use(function (req, res, next) {
