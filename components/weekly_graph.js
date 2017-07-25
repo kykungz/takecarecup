@@ -1,13 +1,11 @@
 var weekly_graph
 $(() => {
-  var ctx = document.getElementById("weekly_graph").getContext('2d');
-
-  weekly_graph = new Chart(ctx, {
+  weekly_graph = new Chart(document.getElementById("weekly_graph").getContext('2d'), {
       type: 'bar',
       data: {
           labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
           datasets: [{
-              label: 'Water amount per day',
+              label: 'Water amount per day (mL)',
               data: [0, 0, 0, 0, 0, 0, 0],
               backgroundColor: [
                   'rgba(255, 0, 0, 0.4)',
@@ -35,7 +33,7 @@ $(() => {
           scales: {
               yAxes: [{
                   ticks: {
-                      beginAtZero:true
+                      beginAtZero: true
                   }
               }]
           }

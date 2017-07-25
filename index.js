@@ -1,58 +1,66 @@
 $(() => {
-  const root = 'http://158.108.165.223/data/8/'
-  const db = 'http://158.108.165.192/api/list.php'
+  const api = 'http://exceed.srakrn.me/api/'
 
-  let volume = 0
-  let temp = 0
-  let drank_amount = 0
-  let suggestion = ''
+  let volume = 0 // in mL
+  let temp = 0 // in Celcius
+  let drank_percent = 0 // Number from 0.0 to 1.0 (1.0 = 2 liter)
+  let suggestion = '' // String
 
-  let temp_type = 0
-  let volume_type = 0
+  let temp_type = 0 // Celcius (0), Fahrenheit (1), Kelvin (2), Feeling (3)
+  let volume_type = 0 // mL (0), Liter (1), Cups (2)
 
-  drank_bar.animate(drank_amount);  // Number from 0.0 to 1.0
-  weekly_graph.update()
-  overall_graph.update()
-  updateSuggestion()
-
-  function getFromServer(link, callback) {
+  function getFromAPI(target, param, callback) {
     $.ajax({
-      url: root + link,
-    }).done((data) => {
-      callback(data)
-    }).fail((data) => {
-      console.log('fail');
-    })
-  }
-
-  function getFromDB(param, callback) {
-    $.ajax({
-      url: db,
+      url: api + target,
       data: param
     }).done((data) => {
       callback(data)
     }).fail((data) => {
-      console.log('fail');
+      console.log('fail')
     })
   }
 
-  function sendToServer(link, value) {
+  function readFromAPI(param, callback) {
     $.ajax({
-      url: root + link +"/set/" + value,
+      url: api + 'read.php',
+      data: param
+    }).done((data) => {
+      callback(data)
+    }).fail((data) => {
+      console.log('fail')
     })
+  }
+
+  function sendToAPI(param) {
+    $.ajax({
+      url: api + 'write.php',
+      data: param
+    }).done((data) => {
+      console.log('sent', api+'write.php', JSON.stringify(param))
+    }).fail((data) => {
+      console.log('fail')
+    })
+  }
+
+  function updateAll() {
+    updateWeeklyGraph()
+    updateOverallGraph()
+    updateSuggestion()
+    updateBar()
+    updateVolume()
   }
 
   function updateTemp() {
     switch (temp_type) {
       case 0: // Celcius
         $('#temp').html(`${temp} °C`)
-        break;
+        break
       case 1: // Fahrenheit
         $('#temp').html(`${parseFloat(Math.round((temp * 1.8000 + 32.00) * 100) / 100).toFixed(2)} °F`)
-        break;
+        break
       case 2: // Kelvin
         $('#temp').html(`${parseFloat(temp) + 273} °K`)
-        break;
+        break
       case 3: // Feeling
         if (temp >= 100) {
           $('#temp').html(`Boiled`)
@@ -65,12 +73,17 @@ $(() => {
         } else {
           $('#temp').html(`Cold`)
         }
-        break;
+        break
     }
   }
+
   function updateBar() {
-    drank_bar.animate(drank_amount);  // Number from 0.0 to 1.0
+    if (drank_percent > 1) {
+      drank_percent = 1
+    }
+    drank_bar.animate(drank_percent)
   }
+
   function updateVolume() {
     if (volume <= 0) {
       $('#volume_icon').attr('class', 'mdi mdi-cup-off')
@@ -80,39 +93,42 @@ $(() => {
       switch (volume_type) {
         case 0: // ml
           $('#volume').html(`${volume} mL`)
-          break;
+          break
         case 1: // liter
           $('#volume').html(`${volume / 1000} Liter`)
-          break;
+          break
         case 2: // cups
           $('#volume').html(`${volume / 250} Cups`)
-          break;
+          break
       }
     }
   }
+
   function updateSuggestion() {
     const today = new Date()
-    if (drank_amount >= 0.9) {
+    if (drank_amount > 3000) {
+      suggestion = `You drink too much!`
+    } else if (drank_percent >= 0.9) {
       suggestion = `Wow! Keep up this good work!`
-    } else if (drank_amount >= 0.7) {
+    } else if (drank_percent >= 0.7) {
       suggestion = `You are healthy!`
-    } else if (drank_amount >= 0.6) {
+    } else if (drank_percent >= 0.6) {
       suggestion = `Don't forget to drink some more when you're free`
-    } else if (drank_amount >= 0.5) {
+    } else if (drank_percent >= 0.5) {
       suggestion = `Get some water when you are thirsty`
     } else {
       if (today.getHours() > 21) {
         suggestion = `Your day is ending, yet you haven't drink enough water!`
       } else {
-        if (drank_amount >= 0.4) {
+        if (drank_percent >= 0.4) {
           suggestion = `8 cups of water a day keeps the doctors away!`
-        } else if (drank_amount >= 0.3) {
+        } else if (drank_percent >= 0.3) {
           suggestion = `Maybe you want a cup of water?`
-        } else if (drank_amount >= 0.2) {
+        } else if (drank_percent >= 0.2) {
           suggestion = `Get hydrated!`
-        } else if (drank_amount >= 0.1) {
+        } else if (drank_percent >= 0.1) {
           suggestion = `Your body needs water!`
-        } else if (drank_amount >= 0.0) {
+        } else if (drank_percent >= 0.0) {
           suggestion = `Get some water!`
         }
       }
@@ -120,11 +136,19 @@ $(() => {
     $('#suggestion').html(suggestion)
   }
 
+  function updateWeeklyGraph() {
+    weekly_graph.update()
+  }
+
+  function updateOverallGraph() {
+    overall_graph.update()
+  }
+
   function convertToWeeklyData(data) {
     let week = [[], [], [], [], [], [] ,[]]
-    data.forEach(element => {
-      let day = new Date(element.timestamp).getDay()
-      week[day].push(element.volume)
+    data.forEach(day => {
+      let date = new Date(day.timestamp).getDay()
+      week[date].push(parseInt(day.volume))
     })
     week = week.map((array) => {
       let lastAmount
@@ -153,7 +177,7 @@ $(() => {
     return data.map((day) => {
       let date = new Date(day.timestamp)
       let hours = date.getHours()
-      var ampm = hours >= 12 ? 'PM' : 'AM';
+      var ampm = hours >= 12 ? 'PM' : 'AM'
       return `${hours}:${date.getMinutes()} ${ampm}`
     })
   }
@@ -164,7 +188,7 @@ $(() => {
     let lastAmount
     data.forEach((day, i) => {
       if (new Date(day.timestamp).toDateString() === today) {
-        let amount = day.volume
+        let amount = parseInt(day.volume)
         if (i !== 0) {
           if (amount < lastAmount) {
             drankAmount += (lastAmount - amount)
@@ -173,21 +197,22 @@ $(() => {
         lastAmount = amount
       }
     })
-    return drankAmount / 2000
+    return drankAmount
   }
 
-  $('#drank_progressbar').css( 'cursor', 'pointer' );
-  $('#temp-block').css( 'cursor', 'pointer' );
-  $('#volume-block').css( 'cursor', 'pointer' );
-  $('#stir').css( 'cursor', 'pointer' );
-  $('#warm').css( 'cursor', 'pointer' );
+  // settings
+  $('#drank_progressbar').css( 'cursor', 'pointer' )
+  $('#temp-block').css( 'cursor', 'pointer' )
+  $('#volume-block').css( 'cursor', 'pointer' )
+  $('#stir').css( 'cursor', 'pointer' )
+  $('#warm').css( 'cursor', 'pointer' )
 
   $('#stir').on('click touch', () => {
-    sendToServer('stir', 1)
+    sendToAPI({key: 'stir', value: 1})
   })
 
   $('#warm').on('click touch', () => {
-    sendToServer('warm', 1)
+    sendToAPI({key: 'warm', value: 1})
   })
 
   $('#drank_progressbar').on('click touch', () => {
@@ -214,33 +239,31 @@ $(() => {
     updateVolume()
   })
 
-  setInterval(() => {
-    getFromServer('temp', (data) => {
-      console.log('temp(old):', data)
-      temp = data
-      updateTemp()
-    })
+  // init
+  updateAll()
+  updateTemp()
 
-    getFromDB({cup: 'srakrn'}, (data) => {
+  // main loop
+  setInterval(() => {
+    getFromAPI('list.php', {cup: 'srakrn'}, (data) => {
       weekly_graph.data.datasets[0].data = convertToWeeklyData(data)
       overall_graph.data.datasets[0].data = convertToOverallData(data)
       overall_graph.data.labels = convertToOverallLabels(data)
 
-      weekly_graph.update()
-      overall_graph.update()
-
       drank_amount = convertToDrankAmount(data)
+      drank_percent = drank_amount / 2000
       volume = data[data.length-1].volume
-      // temp = data[data.length-1].temp
 
-      console.log('volume:', volume);
-      console.log('drank_amount:', drank_amount * 2000);
-      console.log('temp:', temp);
+      console.log('volume:', volume)
+      console.log('drank_amount:', drank_amount)
+      console.log('drank_percent:', drank_percent * 2000)
 
-      updateVolume()
-      updateBar()
-      updateSuggestion()
-      // updateTemp()
+      updateAll()
+    })
+    getFromAPI('read.php', {key: 'temp'}, (data) => {
+      temp = data
+      console.log('temp:', temp)
+      updateTemp()
     })
   }, 1000 * 2)
 
