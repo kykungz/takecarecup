@@ -3,7 +3,7 @@
 var ip = require("ip");
 var express = require('express');
 var app = express();
-var PORT = 3000;
+var PORT = 8080;
 var root = process.env.NODE_ENV ? 'build' : 'src';
 
 app.use(express.static(root));
