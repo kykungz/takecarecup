@@ -2,14 +2,9 @@ const ip = require("ip");
 const express = require('express');
 const app = express()
 const PORT = 8080
-const root = process.env.NODE_ENV ? 'build' : 'src'
+const root = process.env.NODE_ENV === 'production' ? 'build' : 'src'
 
 app.use(express.static(root))
-
-app.use((req, res, next) => {
-  console.log('someone is coming');
-  next()
-})
 
 app.get('/', (req, resm, err) => {
   res.sendFile('index.html', {root})

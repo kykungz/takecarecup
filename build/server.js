@@ -4,14 +4,9 @@ var ip = require("ip");
 var express = require('express');
 var app = express();
 var PORT = 8080;
-var root = process.env.NODE_ENV ? 'build' : 'src';
+var root = process.env.NODE_ENV === 'production' ? 'build' : 'src';
 
 app.use(express.static(root));
-
-app.use(function (req, res, next) {
-  console.log('someone is coming');
-  next();
-});
 
 app.get('/', function (req, resm, err) {
   res.sendFile('index.html', { root: root });
