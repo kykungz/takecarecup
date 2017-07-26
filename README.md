@@ -7,8 +7,8 @@ Available on: https://takecarenacup.herokuapp.com/
 
 ![wide](./images/wide.png)
 <div>
-<img width="30%" src="./images/1.png">
-<img width="30%" src="./images/2.png">
+<img width="300" src="./images/1.png">
+<img width="300" src="./images/2.png">
 </div>
 
 ## Build Setup
