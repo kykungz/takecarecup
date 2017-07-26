@@ -7,8 +7,8 @@ Available on: https://takecarenacup.herokuapp.com/
 
 ![wide](./images/wide.png)
 <div>
-<img width="49%" src="./images/1.png">
-<img width="49%" src="./images/2.png">
+<img width="30%" src="./images/1.png">
+<img width="30%" src="./images/2.png">
 </div>
 
 ## Build Setup
@@ -23,6 +23,8 @@ npm run dev
 # build for production with minification
 npm run build
 ```
+## References
+
 Backend:  https://github.com/srakrn/Exceed-TakeCarenaCup-Backend
 <br>
 Arduino: https://github.com/srakrn/Exceed-TakeCarenaCup-Arduino
