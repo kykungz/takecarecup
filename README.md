@@ -25,6 +25,7 @@ npm run build
 ```
 ## References
 
+Full project description: http://exceed.cpe.ku.ac.th/wiki/index.php/Exceed_14_Group_8
 Backend:  https://github.com/srakrn/Exceed-TakeCarenaCup-Backend
 <br>
 Arduino: https://github.com/srakrn/Exceed-TakeCarenaCup-Arduino
