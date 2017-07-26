@@ -4,16 +4,17 @@ var ip = require("ip");
 var express = require('express');
 var app = express();
 var PORT = 3000;
+var root = process.env.NODE_ENV ? 'build' : 'src';
 
-app.use(express.static('build'));
+app.use(express.static(root));
 
 app.use(function (req, res, next) {
   console.log('someone is coming');
   next();
 });
 
-app.get('/', function (req, res) {
-  res.sendFile('index.html', { root: 'build' });
+app.get('/', function (req, resm, err) {
+  res.sendFile('index.html', { root: root });
 });
 
 app.listen(process.env.PORT || PORT, function () {
