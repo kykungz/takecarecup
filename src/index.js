@@ -20,17 +20,6 @@ $(() => {
     })
   }
 
-  function readFromAPI(param, callback) {
-    $.ajax({
-      url: api + 'read.php',
-      data: param
-    }).done((data) => {
-      callback(data)
-    }).fail((data) => {
-      console.log('fail')
-    })
-  }
-
   function sendToAPI(param) {
     $.ajax({
       url: api + 'write.php',

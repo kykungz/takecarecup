@@ -22,17 +22,6 @@ $(function () {
     });
   }
 
-  function readFromAPI(param, callback) {
-    $.ajax({
-      url: api + 'read.php',
-      data: param
-    }).done(function (data) {
-      callback(data);
-    }).fail(function (data) {
-      console.log('fail');
-    });
-  }
-
   function sendToAPI(param) {
     $.ajax({
       url: api + 'write.php',
